@@ -5,7 +5,6 @@ const userSchema = mongoose.Schema( {
     name: {
         type : String,
         maxlength : 50
-
     },
     email: {
         type: String,
@@ -16,7 +15,7 @@ const userSchema = mongoose.Schema( {
         maxlength : 50
     },
     lastname : {
-        type : String
+        type : String,
         maxlength : 50
     },
     role : {
@@ -32,8 +31,8 @@ const userSchema = mongoose.Schema( {
         type : Number
     }
 
-})
+});
 
-const User = mongoose.model('User',userScema)
+const User = mongoose.model('User',userSchema)
 
 module.exports = { User }
