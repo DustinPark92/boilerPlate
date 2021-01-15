@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import {useDispatch} from 'react-redux'
+import {loginUser} from '../../../_actions/user_action';
+import { withRouter } from 'react-router-dom'
 
-function LoginPage() {
-
+function LoginPage(props) {
+    const dispatch = useDispatch();
 
     //이 안에서 변화 시키려면 state를 변화 시켜야 함
     //이메일 state, password state
@@ -25,8 +28,22 @@ function LoginPage() {
         //page가 refresh 되고 있다. 그것을 막아줌
         event.preventDefault();
 
-        console.log('Email', Email)
-        console.log('Password',Password)
+        let body = {
+            email : Email,
+            password : Password
+        }
+
+
+        //Redux 사용
+        dispatch(loginUser(body))
+        .then(response => {
+            //랜딩 페이지로 이동 props 사용
+            if(response.payload.loginSuccess) {
+                props.history.push('/')
+            } else {
+                alert('Error')
+            }
+        })
 
         
     }
@@ -55,4 +72,4 @@ function LoginPage() {
     )
 }
 
-export default LoginPage
+export default withRouter(LoginPage)
